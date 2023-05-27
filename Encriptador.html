@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Encriptador</title>
+    <link rel="stylesheet" href="Encriptador.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-alura">
+            <h1><img src="imagenes/Vector.jpg"></h1>
+        </div>
+    </header>
+    <main>
+        <section class="principal">
+            <div class="texto">
+                <form>
+                    <div id="texto" class="editable" contentEditable="true">Ingrese el texto aqui</div>
+                  </form> 
+                  <div id="resultado" class="resultado"></div> 
+                  <div id="imagen" class="imagen-persona">
+                    <img src="imagenes/Muñeco.jpg">
+                  </div>
+                  <div id="mensaje" class="mensaje" >Ningún mensaje fue encontrado</div>
+                  <div id="escribir" class="escribir">Ingrese el texto que desees encriptar o desencriptar</div>
+                  <div>
+                    <input type="submit" value="Encriptar" class="encriptar">
+                    <input type="submit" value="Desencriptar" class="desencriptar">
+                    <input type="submit" value="Copiar" class="copiar">
+                  </div>
+            <div class="instruccion">
+                <p>&#9888; solo letras minúsculas y sin acentos</p>
+            </div>
+        </section>
+        <footer>
+            
+        </footer>
+        </main>
+        <script>
+            document.getElementById("texto").addEventListener("focus", function() {
+                if (this.innerHTML === "Ingrese el texto aqui") {
+                    this.innerHTML = "";
+                }
+            });
+    
+            function encriptar() {
+                let texto = document.getElementById("texto").innerHTML;
+                let encriptado = texto.replace(/e/g, "enter")
+                                     .replace(/i/g, "imes")
+                                     .replace(/a/g, "ai")
+                                     .replace(/o/g, "ober")
+                                     .replace(/u/g, "ufat");
+                document.getElementById("resultado").innerHTML ="<p>" + encriptado + "</p>";
+                document.querySelector(".copiar").style.display = "block";  document.querySelector(".copiar").style.display = "block";
+            }
+
+            function desencriptar() {
+                let texto = document.getElementById("texto").innerHTML;
+                let desencriptado = texto.replace(/enter/g, "e")
+                                         .replace(/imes/g, "i")
+                                         .replace(/ai/g, "a")
+                                         .replace(/ober/g, "o")
+                                         .replace(/ufat/g, "u");
+                document.getElementById("resultado").innerHTML = "<p>"+ desencriptado + "</p>";
+                document.querySelector(".copiar").style.display = "block";
+            }
+
+
+            document.querySelector(".encriptar").addEventListener("click", function() {
+                encriptar();
+                document.getElementById("imagen").setAttribute("style", "display: none;");
+                document.getElementById("mensaje").setAttribute("style","display: none;" );
+                document.getElementById("escribir").setAttribute("style", "display:none");
+            });
+
+            document.querySelector(".desencriptar").addEventListener("click", function() {
+                desencriptar();
+                document.getElementById("imagen").setAttribute("style", "display: none;");
+                document.getElementById("mensaje").setAttribute("style","display: none;" );
+                document.getElementById("escribir").setAttribute("style", "display:none");
+            });
+
+
+            document.querySelector(".copiar").addEventListener("click", function() {
+                const resultado = document.getElementById("resultado");
+                const range = document.createRange();
+                range.selectNode(resultado);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                window.getSelection().removeAllRanges();
+                alert("¡Texto copiado correctamente!");
+});
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "c" && event.ctrlKey) {
+    const resultado = document.getElementById("resultado");
+    const range = document.createRange();
+    range.selectNode(resultado);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+    alert("¡Texto copiado correctamente!");
+  }
+});
+
+
+        </script>
+
+</body>
+</html>
+
+  
